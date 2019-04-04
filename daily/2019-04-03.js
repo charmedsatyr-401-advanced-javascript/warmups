@@ -21,14 +21,12 @@ ARRAYS
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-// For Loop
 const forLoop = arr => {
   for (let i = 0; i < arr.length; i++) {
     console.log(arr[i]);
   }
 };
 
-// While Loop
 const whileLoop = arr => {
   let i = 0;
   while (i < arr.length) {
@@ -36,7 +34,7 @@ const whileLoop = arr => {
     i++;
   }
 };
-// .Map
+
 const map = (arr, cb) => {
   const array = [];
   for (let i = 0; i < arr.length; i++) {
@@ -44,7 +42,7 @@ const map = (arr, cb) => {
   }
   return array;
 };
-// .Filter
+
 const filter = (arr, cb) => {
   const array = [];
   for (let i = 0; i < arr.length; i++) {
@@ -55,7 +53,6 @@ const filter = (arr, cb) => {
   return array;
 };
 
-// .Reduce
 const reduce = (arr, cb, init) => {
   let acc,
     i = 0;
@@ -76,8 +73,7 @@ forLoop(arr);
 whileLoop(arr);
 map(arr, n => n + 1);
 filter(arr, n => n === 1);
-console.log('should be 0:', reduce(arr, (acc, curr) => acc + curr, -55));
-console.log('should be 55:', reduce(arr, (acc, curr) => acc + curr));
+reduce(arr, (acc, curr) => acc + curr, 100);
 
 /*
 ************************************
@@ -109,11 +105,14 @@ const stuff = {
 };
 
 let state = {};
+
 let newPeople = ['Odie', ...people, 'Garfield'];
-const newStuff = { ...stuff, cars: [...stuff.cars, 'GMC'] };
+
+const newStuff = { ...stuff, cars: [...stuff.cars, 'Pinto'] };
+
 let newState = {
-  people: ['S', ...people, 'Garfield'],
-  stuff: { ...stuff, cars: [...stuff.cars, 'GMC'] },
+  people: ['Odie', ...people, 'Garfield'],
+  stuff: { ...stuff, cars: [...stuff.cars, 'Pinto'] },
 };
 
 console.log(people);
