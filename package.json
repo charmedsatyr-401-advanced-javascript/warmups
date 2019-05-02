@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/charmedsatyr-401-advanced-javascript/warmups#readme",
   "dependencies": {
+    "dotenv": "^7.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
     "superagent": "^5.0.2"
   }
 }
