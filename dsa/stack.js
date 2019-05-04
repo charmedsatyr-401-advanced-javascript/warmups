@@ -1,6 +1,6 @@
 'use strict';
 
-const Node = require('./node.js');
+const { Node } = require('./node.js');
 
 class Stack {
   constructor() {
@@ -13,4 +13,4 @@ class Stack {
   }
 }
 
-module.exports = new Stack();
+module.exports = { Stack };
