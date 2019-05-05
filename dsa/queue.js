@@ -3,9 +3,13 @@
 const { Node } = require('./node.js');
 
 class Queue {
-  constructor() {
-    this.front = null;
-    this.back = null;
+  constructor(data) {
+    let node;
+    if (data) {
+      node = new Node(data);
+    }
+    this.front = node || null;
+    this.back = node || null;
   }
 
   enqueue(data) {

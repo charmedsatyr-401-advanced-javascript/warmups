@@ -72,6 +72,7 @@ describe('`BinaryTree` class', () => {
       expect.assertions(8);
     });
   });
+
   describe('`findMaximumValue` method', () => {
     it('Returns `null` if the tree is empty', () => {
       const bt = new BinaryTree();
@@ -79,19 +80,27 @@ describe('`BinaryTree` class', () => {
       expect(result).toBeNull();
     });
 
-    it('Can successfully return the maximum value in a tree', () => {
+    it('returns the maximum value of data in a tree', () => {
       const bt = new BinaryTree();
       const arr = [0, 1, 2, 20, 3, 4, 5, 42.1, 6];
       arr.forEach(n => bt.add(n));
+
       const result = bt.findMaximumValue();
       expect(result).toEqual(42.1);
     });
   });
+
   describe('`breadthFirstOrder` method', () => {
     it('Returns `null` if the tree is empty', () => {
       const bt = new BinaryTree();
       const result = bt.breadthFirstOrder();
       expect(result).toBeNull();
+    });
+
+    it('returns null if given an argument with no root', () => {
+      const bt = new BinaryTree();
+      const empty = {};
+      expect(bt.breadthFirstOrder(empty)).toBeNull();
     });
 
     it('Can successfully return a collection from a breadth-first order traversal', () => {
@@ -114,7 +123,23 @@ describe('`BinaryTree` class', () => {
       expect(bt.preOrder()).toBeNull();
     });
 
-    it('can successfully return a collection from a preorder traversal', () => {
+    it('returns null if given an argument with no root', () => {
+      const bt = new BinaryTree();
+      const empty = {};
+      expect(bt.preOrder(empty)).toBeNull();
+    });
+
+    it('returns a preorder collection if given a node', () => {
+      const bt1 = new BinaryTree();
+
+      const data = alphaNumeric();
+      const bt2 = new BinaryTree(data);
+
+      const expected = [data];
+      expect(bt1.preOrder(bt2.root)).toEqual(expected);
+    });
+
+    it('returns its tree data in preorder if not given a node', () => {
       const a = alphaNumeric();
       const b = alphaNumeric();
       const c = alphaNumeric();
@@ -133,19 +158,21 @@ describe('`BinaryTree` class', () => {
       expect(bt.preOrder()).toEqual([a, b, d, e, c, f]);
     });
   });
+
   describe('`inOrder` method', () => {
     it('returns null if the tree has no nodes', () => {
       const bt = new BinaryTree();
       expect(bt.inOrder()).toBeNull();
     });
 
-    it('Can successfully return a collection from an inorder traversal', () => {
+    it('returns inorder collection from inorder traversal', () => {
       const a = alphaNumeric();
       const b = alphaNumeric();
       const c = alphaNumeric();
       const d = alphaNumeric();
       const e = alphaNumeric();
       const f = alphaNumeric();
+      const g = alphaNumeric();
 
       const bt = new BinaryTree(a);
       bt.add(b);
@@ -155,22 +182,25 @@ describe('`BinaryTree` class', () => {
       bt.add(d);
       bt.add(e);
       bt.add(f);
-      expect(bt.inOrder()).toEqual([d, b, e, a, f, c]);
+      bt.add(g);
+      expect(bt.inOrder()).toEqual([d, b, e, a, f, c, g]);
     });
   });
+
   describe('`postOrder` method', () => {
     it('returns null if the tree has no nodes', () => {
       const bt = new BinaryTree();
       expect(bt.postOrder()).toBeNull();
     });
 
-    it('Can successfully return a collection from a postorder traversal', () => {
+    it('returns postorder collection from postorder traversal', () => {
       const a = alphaNumeric();
       const b = alphaNumeric();
       const c = alphaNumeric();
       const d = alphaNumeric();
       const e = alphaNumeric();
       const f = alphaNumeric();
+      const g = alphaNumeric();
 
       const bt = new BinaryTree(a);
       bt.add(b);
@@ -180,7 +210,8 @@ describe('`BinaryTree` class', () => {
       bt.add(d);
       bt.add(e);
       bt.add(f);
-      expect(bt.postOrder()).toEqual([d, e, b, f, c, a]);
+      bt.add(g);
+      expect(bt.postOrder()).toEqual([d, e, b, f, g, c, a]);
     });
   });
 });

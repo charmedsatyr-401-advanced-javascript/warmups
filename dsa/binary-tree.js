@@ -1,23 +1,27 @@
 'use strict';
 
-const { Node } = require('./node');
 const { Queue } = require('./queue');
+const { Node } = require('./node');
 
 class BinaryTree {
   constructor(data) {
     this.root = null;
     if (data) {
-      this.root = new Node(data) || null;
+      this.root = new Node(data);
     }
   }
   add(data) {
     const q = new Queue();
+
     let current = this.root;
+
     if (!current) {
       this.root = new Node(data);
       return;
     }
+
     q.enqueue(current);
+
     while (q.peek()) {
       current = q.dequeue();
       if (!current.left) {
@@ -42,17 +46,13 @@ class BinaryTree {
    *
    * => [a, b, c, d, e, f, g]
    ***/
-  breadthFirstOrder(root = this.root) {
-    const q = new Queue();
-    let current = root;
-
-    const data = [];
-
-    if (!current) {
+  breadthFirstOrder(root = this.root, data = []) {
+    if (!root || root.data === null || root.data === undefined) {
       return null;
     }
 
-    q.enqueue(current);
+    let current = root;
+    const q = new Queue(current);
 
     while (q.peek()) {
       current = q.dequeue();
@@ -74,35 +74,24 @@ class BinaryTree {
    *    /   \
    *   b     c
    *  / \   /  \
-   * d   e f   g
-   *
-   * ==>[a, b, d, e, c, f, g]
-   *
+   * d   e f    g
+   * ==> [a, b, d, e, c, f, g]
    ***/
-  preOrder(root = this.root) {
-    const data = [];
+  preOrder(root = this.root, data = []) {
+    if (!root || root.data === null || root.data === undefined) {
+      return null;
+    }
 
-    const traversePreOrder = root => {
-      if (!root) {
-        return null;
-      }
+    data.push(root.data);
 
-      if (root) {
-        data.push(root.data);
-      }
+    if (root.left) {
+      this.preOrder(root.left, data);
+    }
 
-      if (root.left) {
-        traversePreOrder(root.left);
-      }
-
-      if (root.right) {
-        traversePreOrder(root.right);
-      }
-    };
-
-    traversePreOrder(root);
-
-    return data.length > 0 ? data : null;
+    if (root.right) {
+      this.preOrder(root.right, data);
+    }
+    return data;
   }
 
   /***
@@ -113,69 +102,62 @@ class BinaryTree {
    *  / \   /  \
    * d   e f   g
    *
-   *  ??  ==> [d, b, e, a, f, c, g]
-   *
+   * ==> [d, b, e, a, f, c, g]
    ***/
-  inOrder(root = this.root) {
-    const data = [];
+  inOrder(root = this.root, data = []) {
+    if (!root || root.data === null || root.data === undefined) {
+      return null;
+    }
 
-    const traverseInOrder = root => {
-      if (!root) {
-        return null;
-      }
+    if (root.left) {
+      this.inOrder(root.left, data);
+    }
 
-      if (root.left) {
-        traverseInOrder(root.left);
-      }
+    data.push(root.data);
 
-      if (root) {
-        data.push(root.data);
-      }
+    if (root.right) {
+      this.inOrder(root.right, data);
+    }
 
-      if (root.right) {
-        traverseInOrder(root.right);
-      }
-    };
-
-    traverseInOrder(root);
-
-    return data.length > 0 ? data : null;
+    return data;
   }
 
-  postOrder(root = this.root) {
-    const data = [];
+  /***
+   *      a
+   *     ^ ^
+   *    /   \
+   *   b     c
+   *  / \   /  \
+   * d   e f   g
+   *
+   * ==> [d, e, b, f, g, c, a];
+   ***/
+  postOrder(root = this.root, data = []) {
+    if (!root || root.data === null || root.data === undefined) {
+      return null;
+    }
 
-    const traversePostOrder = root => {
-      if (!root) {
-        return null;
-      }
+    if (root.left) {
+      this.postOrder(root.left, data);
+    }
 
-      if (root.left) {
-        traversePostOrder(root.left);
-      }
+    if (root.right) {
+      this.postOrder(root.right, data);
+    }
 
-      if (root.right) {
-        traversePostOrder(root.right);
-      }
+    data.push(root.data);
 
-      if (root) {
-        data.push(root.data);
-      }
-    };
-
-    traversePostOrder(root);
-
-    return data.length > 0 ? data : null;
+    return data;
   }
 
   findMaximumValue(root = this.root) {
-    const q = new Queue();
-    let current = root;
-    let max = null;
-    if (!current) {
+    if (!root || root.data === null || root.data === undefined) {
       return null;
     }
-    max = current.data;
+
+    let current = root;
+    const q = new Queue();
+    let max = current.data;
 
     q.enqueue(current);
 
