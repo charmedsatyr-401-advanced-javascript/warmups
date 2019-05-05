@@ -23,11 +23,12 @@ describe('`BinaryTree` class', () => {
   describe('`add` method', () => {
     it('can successfully add left and right children in a balanced way', () => {
       /***
-       *1       a
-       *       /  \
-       *2     b    c
-       *     / \  / \
-       *3   d   e f  g
+       *1        a
+       *        ^ ^
+       *       /   \
+       *2     b     c
+       *     / \   / \
+       *3   d   e f   g
        *   /
        *4 h
        ***/
@@ -45,30 +46,30 @@ describe('`BinaryTree` class', () => {
 
       const b2 = bt.root.left;
       const c2 = bt.root.right;
-      //
-      //  const d = alphaNumeric();
-      //  bt.add(d);
-      //  expect(b2.left.data).toBe(d);
-      //
-      //  const e = alphaNumeric();
-      //  bt.add(e);
-      //  expect(b2.right.data).toBe(e);
-      //
-      //  const f = alphaNumeric();
-      //  bt.add(f);
-      //  expect(c2.left.data).toBe(f);
-      //
-      //  const g = alphaNumeric();
-      //  bt.add(g);
-      //  expect(c2.right.data).toBe(g);
-      //
-      // const d3 = b2.left.data;
-      //
-      // const h = alphaNumeric();
-      // bt.add(h);
-      // expect(d3.left.data).toBe(h);
 
-      // expect.assertions(8);
+      const d = alphaNumeric();
+      bt.add(d);
+      expect(b2.left.data).toBe(d);
+
+      const e = alphaNumeric();
+      bt.add(e);
+      expect(b2.right.data).toBe(e);
+
+      const f = alphaNumeric();
+      bt.add(f);
+      expect(c2.left.data).toBe(f);
+
+      const g = alphaNumeric();
+      bt.add(g);
+      expect(c2.right.data).toBe(g);
+
+      const d3 = b2.left;
+
+      const h = alphaNumeric();
+      bt.add(h);
+      expect(d3.left.data).toBe(h);
+
+      expect.assertions(8);
     });
   });
   describe('`findMaximumValue` method', () => {
