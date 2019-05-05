@@ -71,8 +71,8 @@ const stuff = {
   cars: ['Toyota', 'Mazda'],
 };
 
-const newPeople = ['Odie', ...people, 'Garfield'];
-const newStuff = { ...stuff, cars: [...stuff.cars, 'GMC'] };
+// const newPeople = ['Odie', ...people, 'Garfield'];
+// const newStuff = { ...stuff, cars: [...stuff.cars, 'GMC'] };
 const state = { stuff, people };
 const newState = {
   stuff: { ...stuff, cars: [...stuff.cars, 'GMC'] },

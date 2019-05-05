@@ -1,6 +1,6 @@
 'use strict';
 
-const { Node } = require('../node');
+// const { Node } = require('../node');
 const { Stack } = require('../stack');
 
 describe('Stack', () => {

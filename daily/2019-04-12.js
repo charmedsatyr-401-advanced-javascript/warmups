@@ -108,16 +108,16 @@ const stuff = {
   cars: ['Toyota', 'Mazda'],
 };
 
-let state = {};
+// let state = {};
 
-let newPeople = ['Odie', ...people, 'Garfield'];
+// let newPeople = ['Odie', ...people, 'Garfield'];
 
-const newStuff = { ...stuff, cars: [...stuff.cars, 'Pinto'] };
+// const newStuff = { ...stuff, cars: [...stuff.cars, 'Pinto'] };
 
-let newState = {
-  people: ['Odie', ...people, 'Garfield'],
-  stuff: { ...stuff, cars: [...stuff.cars, 'Pinto'] },
-};
+// let newState = {
+//   people: ['Odie', ...people, 'Garfield'],
+//   stuff: { ...stuff, cars: [...stuff.cars, 'Pinto'] },
+// };
 
 console.log('people:', people);
 console.log('stuff:', stuff);

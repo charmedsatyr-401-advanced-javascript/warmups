@@ -89,19 +89,19 @@ OBJECTS
 7. Prove that the original people, stuff, and state are unchanged.
 */
 
-const people = ['Kookla', 'Fran', 'Ollie'];
-
-const stuff = {
-  tv: 'huge',
-  radio: 'old',
-  toothbrush: 'frayed',
-  cars: ['Toyota', 'Mazda'],
-};
-
-let state = {};
-let newPeople = [];
-const newStuff = {};
-let newState = {};
+// const people = ['Kookla', 'Fran', 'Ollie'];
+//
+// const stuff = {
+//   tv: 'huge',
+//   radio: 'old',
+//   toothbrush: 'frayed',
+//   cars: ['Toyota', 'Mazda'],
+// };
+//
+// let state = {};
+// let newPeople = [];
+// const newStuff = {};
+// let newState = {};
 
 //*******************************
 //      Canvas Submission
