@@ -5,6 +5,7 @@ const { Queue } = require('./queue');
 
 class BinaryTree {
   constructor(data) {
+    this.root = null;
     if (data) {
       this.root = new Node(data) || null;
     }
@@ -32,12 +33,12 @@ class BinaryTree {
     }
   }
 
-  /***
-   *      a
+  /***    a
+   *     ^ ^
    *    /   \
    *   b     c
    *  / \   /  \
-   * d   e f   g
+   * d   e f    g
    *
    * => [a, b, c, d, e, f, g]
    ***/
