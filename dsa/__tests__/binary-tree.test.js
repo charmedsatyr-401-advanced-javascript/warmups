@@ -1,0 +1,141 @@
+'use strict';
+
+const { alphaNumeric } = require('faker').random;
+const { BinaryTree } = require('../binary-tree');
+
+describe('`BinaryTree` class', () => {
+  it('can successfully instantiate an empty tree', () => {
+    const bt = new BinaryTree();
+    expect(bt).toBeDefined();
+
+    expect.assertions(1);
+  });
+
+  it('Can successfully instantiate a tree with a single root node', () => {
+    const data = alphaNumeric();
+
+    const bt = new BinaryTree(data);
+    expect(bt).toBeDefined();
+
+    expect.assertions(1);
+  });
+
+  describe('`add` method', () => {
+    it('can successfully add left and right children in a balanced way', () => {
+      /***
+       *1        a
+       *        ^ ^
+       *       /   \
+       *2     b     c
+       *     / \   / \
+       *3   d   e f   g
+       *   /
+       *4 h
+       ***/
+      const a = alphaNumeric();
+      const bt = new BinaryTree(a);
+      expect(bt.root.data).toBe(a);
+
+      const b = alphaNumeric();
+      bt.add(b);
+      expect(bt.root.left.data).toBe(b);
+
+      const c = alphaNumeric();
+      bt.add(c);
+      expect(bt.root.right.data).toBe(c);
+
+      const b2 = bt.root.left;
+      const c2 = bt.root.right;
+
+      const d = alphaNumeric();
+      bt.add(d);
+      expect(b2.left.data).toBe(d);
+
+      const e = alphaNumeric();
+      bt.add(e);
+      expect(b2.right.data).toBe(e);
+
+      const f = alphaNumeric();
+      bt.add(f);
+      expect(c2.left.data).toBe(f);
+
+      const g = alphaNumeric();
+      bt.add(g);
+      expect(c2.right.data).toBe(g);
+
+      const d3 = b2.left;
+
+      const h = alphaNumeric();
+      bt.add(h);
+      expect(d3.left.data).toBe(h);
+
+      expect.assertions(8);
+    });
+  });
+  describe('`findMaximumValue` method', () => {
+    xit('Returns `null` if the tree is empty', () => {
+      const bt = new BinaryTree();
+      const result = bt.breadthFirstOrder();
+      expect(result).toBeNull();
+    });
+    xit('Can successfully return the maximum value in a tree', () => {
+      const bt = new BinaryTree();
+      const arr = [0, 1, 2, 20, 3, 4, 5, 42.1, 6];
+      arr.forEach(n => bt.add(n));
+      const result = bt.findMaximumValue();
+      expect(result).toEqual(42.1);
+    });
+  });
+  describe('`breadthFirstOrder` method', () => {
+    xit('Returns `null` if the tree is empty', () => {
+      const bt = new BinaryTree();
+      const result = bt.breadthFirstOrder();
+      expect(result).toBeNull();
+    });
+    xit('Can successfully return a collection from a breadth-first order traversal', () => {
+      const bt = new BinaryTree();
+      const arr = [1, 2, 3, 4, 5, 6];
+      arr.forEach(n => bt.add(n));
+      const result = bt.breadthFirstOrder();
+      expect(result).toEqual(arr);
+    });
+  });
+
+  describe('`preOrder` method', () => {
+    xit('Can successfully return a collection from a preorder traversal', () => {
+      const bt = new BinaryTree('a');
+      bt.add('b');
+      bt.add('c');
+      expect(bt.preOrder()).toEqual(['a', 'b', 'c']);
+      bt.add('d');
+      bt.add('e');
+      bt.add('f');
+      expect(bt.preOrder()).toEqual(['a', 'b', 'd', 'e', 'c', 'f']);
+    });
+  });
+  describe('`inOrder` method', () => {
+    xit('Can successfully return a collection from an inorder traversal', () => {
+      const bt = new BinaryTree('a');
+      bt.add('b');
+      bt.add('c');
+      expect(bt.inOrder()).toEqual(['b', 'a', 'c']);
+      bt.add('d');
+      bt.add('e');
+      bt.add('f');
+      expect(bt.inOrder()).toEqual(['d', 'b', 'e', 'a', 'f', 'c']);
+    });
+  });
+  describe('`postOrder` method', () => {
+    xit('Can successfully return a collection from a postorder traversal', () => {
+      const bt = new BinaryTree('a');
+      bt.add('b');
+      bt.add('c');
+      expect(bt.postOrder()).toEqual(['b', 'c', 'a']);
+      bt.add('d');
+      bt.add('e');
+      bt.add('f');
+      // expect(result).toEqual(['d', 'e', 'b', 'f', 'c', 'a']);
+      //
+    });
+  });
+});

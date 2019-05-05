@@ -1,18 +1,80 @@
 'use strict';
 
-const node = require('../node');
-const q = require('../queue');
+const { Queue } = require('../queue');
+const { alphaNumeric } = require('faker').random;
+
+let q;
+beforeEach(() => {
+  q = new Queue();
+});
 
 describe('Queue', () => {
-  it('it should be possible add a node', () => {
-    q.enQ(1);
+  it('should be possible to instantiate a queue', () => {
+    expect(q).toBeDefined();
+
     expect.assertions(1);
-    expect(q.front.data).toBe(1);
   });
-  it('should be possible to traverse a node front to back', () => {
-    q.enQ(2);
-    q.enQ(3);
-    expect(q.front.next.data).toBe(2);
-    expect(q.front.next.next.data).toBe(3);
+
+  it('it should be possible add a node', () => {
+    const data = alphaNumeric();
+    q.enqueue(data);
+    expect(q.front.data).toBe(data);
+
+    expect.assertions(1);
+  });
+  it('should be possible to traverse a queue front to back', () => {
+    const a = alphaNumeric();
+    const b = alphaNumeric();
+
+    q.enqueue(a);
+    q.enqueue(b);
+
+    expect(q.front.data).toBe(a);
+    expect(q.front.next.data).toBe(b);
+
+    expect.assertions(2);
+  });
+
+  it('should be possible to dequeue the front node', () => {
+    const a = alphaNumeric();
+    q.enqueue(a);
+
+    expect(q.dequeue()).toBe(a);
+
+    expect(q.peek()).toBeNull();
+
+    expect.assertions(2);
+  });
+
+  it('should be possible to dequeue the front node when the queue is longer than 1 node', () => {
+    const a = alphaNumeric();
+    const b = alphaNumeric();
+
+    q.enqueue(a);
+    q.enqueue(b);
+
+    expect(q.dequeue()).toBe(a);
+
+    expect(q.dequeue()).toBe(b);
+
+    expect(q.peek()).toBeNull();
+
+    expect.assertions(3);
+  });
+
+  it('should return `null` when dequeueing an empty queue', () => {
+    const result = q.dequeue();
+    expect(result).toBeNull();
+  });
+
+  it('should be possible to peek on the front node', () => {
+    expect(q.peek()).toBeNull();
+
+    const a = alphaNumeric();
+    q.enqueue(a);
+
+    expect(q.peek()).toBe(a);
+
+    expect.assertions(2);
   });
 });
