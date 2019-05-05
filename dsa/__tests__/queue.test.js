@@ -53,16 +53,13 @@ describe('Queue', () => {
     q.enqueue(a);
     q.enqueue(b);
 
-    q.dequeue();
     expect(q.dequeue()).toBe(a);
 
-    q.dequeue();
-    console.log('QQQQQ:', q);
-    //expect(q.dequeue()).toBe(b);
+    expect(q.dequeue()).toBe(b);
 
-    //// expect(q.peek()).toBeNull();
+    expect(q.peek()).toBeNull();
 
-    //  expect.assertions(3);
+    expect.assertions(3);
   });
 
   it('should return `null` when dequeueing an empty queue', () => {

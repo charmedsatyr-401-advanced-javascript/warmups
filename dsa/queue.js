@@ -5,14 +5,19 @@ const { Node } = require('./node.js');
 class Queue {
   constructor() {
     this.front = null;
+    this.back = null;
   }
 
   enqueue(data) {
     const node = new Node(data);
 
     if (!this.front) {
+      this.back = node;
       this.front = node;
-      return;
+    } else {
+      const back = this.back;
+      back.next = node;
+      this.back = node;
     }
   }
 
@@ -24,14 +29,15 @@ class Queue {
     }
 
     if (!current.next) {
-      this.back = null;
       this.front = null;
+      this.back = null;
       return current.data;
     }
 
-    if (current) {
-      current.next = this.front;
-      return current.data;
+    if (current && current.next) {
+      const { data } = current;
+      this.front = current.next;
+      return data;
     }
   }
 
