@@ -150,6 +150,31 @@ class BinaryTree {
     return data;
   }
 
+  getHeight(node = this.root) {
+    if (!node || node.data === null || node.data === undefined) {
+      return 0;
+    }
+
+    let leftSubtree = 0;
+    let rightSubtree = 0;
+
+    if (node.left) {
+      leftSubtree = this.getHeight(node.left);
+    }
+
+    if (node.right) {
+      rightSubtree = this.getHeight(node.right);
+    }
+
+    if (leftSubtree > rightSubtree) {
+      const leftHeight = leftSubtree + 1;
+      return leftHeight;
+    } else {
+      const rightHeight = rightSubtree + 1;
+      return rightHeight;
+    }
+  }
+
   findMaximumValue(root = this.root) {
     if (!root || root.data === null || root.data === undefined) {
       return null;
