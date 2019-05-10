@@ -1,37 +1,144 @@
 'use strict';
 
-// const { Node } = require('../node');
+const { alphaNumeric } = require('faker').random;
+
+const log = jest.spyOn(global.console, 'log').mockImplementation(() => {});
+
 const { Stack } = require('../stack');
 
 describe('Stack', () => {
-  it('should be possible to instantiate a stack', () => {
-    const stack = new Stack();
+  describe('constructor', () => {
+    it('should be possible to instantiate a stack', () => {
+      const stack = new Stack();
 
-    expect(stack).toBeDefined();
+      expect(stack).toBeDefined();
 
-    expect.assertions(1);
+      expect.assertions(1);
+    });
   });
 
-  it('should be possible to add a node', () => {
-    const stack = new Stack();
+  describe('`push` method', () => {
+    it('should add a node', () => {
+      const stack = new Stack();
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
 
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
-    expect(stack.top.data).toBe(3);
+      stack.push(a);
+      stack.push(b);
+      stack.push(c);
+      expect(stack.top.data).toBe(c);
 
-    expect.assertions(1);
+      expect.assertions(1);
+    });
   });
 
-  it('should be possible to traverse a stack top to bottom', () => {
-    const stack = new Stack();
+  describe('`pop` method', () => {
+    it('should return `null` on an empty stack', () => {
+      const stack = new Stack();
 
-    stack.push(1);
-    stack.push(2);
+      const result = stack.pop();
+      expect(result).toBeNull();
+    });
 
-    expect(stack.top.data).toBe(2);
-    expect(stack.top.next.data).toBe(1);
+    it('should assign the `top` to `null` if the stack has been emptied', () => {
+      const stack = new Stack();
+      const a = alphaNumeric();
 
-    expect.assertions(2);
+      stack.push(a);
+
+      stack.pop();
+      expect(stack.top).toBeNull();
+
+      expect.assertions(1);
+    });
+
+    it('should return the value of the `top` node', () => {
+      const stack = new Stack();
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+
+      stack.push(a);
+      stack.push(b);
+      stack.push(c);
+
+      const result = stack.pop();
+      expect(result.data).toBe(c);
+
+      expect.assertions(1);
+    });
+
+    it('should remove the `top` node', () => {
+      const stack = new Stack();
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+
+      stack.push(a);
+      stack.push(b);
+      stack.push(c);
+
+      stack.pop();
+
+      expect(stack.top.data).toBe(b);
+
+      expect.assertions(1);
+    });
+  });
+
+  describe('`print` method', () => {
+    it('should return an empty array if the `top` does not exist', () => {
+      const stack = new Stack();
+      const result = stack.print();
+      const expected = [];
+      expect(result).toEqual(expected);
+    });
+
+    it('should print all values in the stack in LIFO order', () => {
+      const stack = new Stack();
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+      const d = alphaNumeric();
+      const e = alphaNumeric();
+
+      stack.push(a);
+      stack.push(b);
+      stack.push(c);
+      stack.push(d);
+      stack.push(e);
+
+      const result = stack.print();
+      const expected = [e, d, c, b, a];
+
+      expect(result).toEqual(expected);
+
+      expect.assertions(1);
+    });
+
+    it('should log all values in the stack in LIFO order', () => {
+      log.mockClear();
+      const stack = new Stack();
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+      const d = alphaNumeric();
+      const e = alphaNumeric();
+
+      stack.push(a);
+      stack.push(b);
+      stack.push(c);
+      stack.push(d);
+      stack.push(e);
+
+      stack.print();
+
+      const expected = [e, d, c, b, a];
+      expect(log).toHaveBeenCalledWith(expected);
+
+      expect.assertions(1);
+      log.mockClear();
+    });
   });
 });
