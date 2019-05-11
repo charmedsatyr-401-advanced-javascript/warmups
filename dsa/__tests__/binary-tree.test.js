@@ -2,6 +2,7 @@
 
 const { alphaNumeric } = require('faker').random;
 const { BinaryTree } = require('../binary-tree');
+const { Node } = require('../node');
 
 describe('`BinaryTree` class', () => {
   it('can successfully instantiate an empty tree', () => {
@@ -212,6 +213,112 @@ describe('`BinaryTree` class', () => {
       bt.add(f);
       bt.add(g);
       expect(bt.postOrder()).toEqual([d, e, b, f, g, c, a]);
+    });
+  });
+
+  describe('`getHeight` method', () => {
+    it('should return 0 if given a tree with no root', () => {
+      const bt = new BinaryTree();
+      expect(bt.getHeight()).toBe(0);
+    });
+
+    it('should return 1 if the root has no children', () => {
+      const a = alphaNumeric();
+      const bt = new BinaryTree(a);
+
+      expect(bt.getHeight()).toBe(1);
+    });
+
+    /***
+     *1        a
+     *        ^ ^
+     *       /   \
+     *2     b     c
+     *     / \   / \
+     *3   d   e f   g
+     *   /
+     *4 h
+     ***/
+    it('should return the height of a tree that has a longer left', () => {
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+      const d = alphaNumeric();
+      const e = alphaNumeric();
+      const f = alphaNumeric();
+      const g = alphaNumeric();
+      const h = alphaNumeric();
+
+      const bt = new BinaryTree(a);
+      bt.add(b);
+      bt.add(c);
+      bt.add(d);
+      bt.add(e);
+      bt.add(f);
+      bt.add(g);
+      bt.add(h);
+
+      expect(bt.getHeight()).toBe(4);
+    });
+
+    /***
+     *1        a
+     *        ^ ^
+     *       /   \
+     *2     b     c
+     *     / \   / \
+     *3   d   e f   g
+     ***/
+    it('should return the height of a balanced tree', () => {
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+      const d = alphaNumeric();
+      const e = alphaNumeric();
+      const f = alphaNumeric();
+      const g = alphaNumeric();
+
+      const bt = new BinaryTree(a);
+      bt.add(b);
+      bt.add(c);
+      bt.add(d);
+      bt.add(e);
+      bt.add(f);
+      bt.add(g);
+
+      expect(bt.getHeight()).toBe(3);
+    });
+
+    /***
+     *1       a
+     *       ^ ^
+     *      /   \
+     *2    b     c
+     *    / \   / \
+     *3  d   e f   g
+     *              \
+     *4              h
+     ***/
+    it('should return the height of a tree that has a longer right', () => {
+      const a = alphaNumeric();
+      const b = alphaNumeric();
+      const c = alphaNumeric();
+      const d = alphaNumeric();
+      const e = alphaNumeric();
+      const f = alphaNumeric();
+      const g = alphaNumeric();
+      const h = 'yellow';
+
+      const bt = new BinaryTree(a);
+      bt.add(b);
+      bt.add(c);
+      bt.add(d);
+      bt.add(e);
+      bt.add(f);
+      bt.add(g);
+      bt.root.right.right.right = new Node(h);
+
+      expect(bt.getHeight()).toBe(4);
     });
   });
 });

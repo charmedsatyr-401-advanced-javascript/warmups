@@ -28,30 +28,26 @@ class Queue {
   dequeue() {
     let current = this.front;
 
-    if (!current) {
+    if (!current || current.data === undefined || current.data === null) {
       return null;
     }
 
-    if (!current.next) {
+    if (!current.next || current.next.data == undefined || current.next.data == null) {
       this.front = null;
       this.back = null;
       return current.data;
     }
 
-    if (current && current.next) {
-      const { data } = current;
-      this.front = current.next;
-      return data;
-    }
+    const { data } = current;
+    this.front = current.next;
+    return data;
   }
 
   peek() {
-    if (!this.front) {
+    if (!this.front || this.front.data === undefined || this.front.data === null) {
       return null;
     }
-    if (this.front) {
-      return this.front.data;
-    }
+    return this.front.data;
   }
 }
 
